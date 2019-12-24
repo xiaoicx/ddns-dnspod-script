@@ -23,7 +23,7 @@ sudo apt-get install git jq curl
 - 关于`DNSPod`的`token`申请参考官网或者百度,这里就不写详细申请方式!
 
 ```bash
-dnspod-record.sh  这个脚本是直接获取wan口的IP进行跟新
+dnspod-record.sh  这个脚本是直接获取wan口的IP进行更新
 
 net-dnspod-record.sh  这个脚本则是获取外网IP后使用外网IP进行更新记录
 ```
