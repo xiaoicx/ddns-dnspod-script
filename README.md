@@ -74,4 +74,4 @@ crontab -e
 
 # FQA
 
-> 有问题可以到我博客留言或者发邮件给我:blog <https:i7dom.cn> email <onxiaoqi@qq.com >
+> 有问题可以到我博客留言或者发邮件给我:blog <https://i7dom.cn> email <onxiaoqi@qq.com >
