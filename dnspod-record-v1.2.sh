@@ -10,11 +10,11 @@
 ##########################################
 
 #dnspod Id and Token
-dpID='166877'
-dpToken='43112991c9f838360844255d267ac2cf'
+dpID=''
+dpToken=''
 
 #domain name
-dpDomain='i7dom.cn'
+dpDomain='baidu.cn'
 
 #host name
 dpHostName='mq'
@@ -32,7 +32,7 @@ updataModule=1
 logTime=$(date +"[%Y-%m-%d %H:%M]")
 
 #updata iP
-updataIP='127.0.1.0'
+updataIP='127.0.0.1'
 
 #LocalIP regular
 ipReg='^[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}$'
