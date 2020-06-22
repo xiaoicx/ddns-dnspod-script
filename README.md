@@ -11,24 +11,29 @@
 
 ```bash
 #CentOS
-yum install git jq curl
+yum install -y git jq curl
 
 #Ubuntu
-sudo apt-get install git jq curl
+sudo apt-get install -y git jq curl
 ```
 > 如果无法正常安装`jq`则可以到<https://stedolan.github.io/jq/download/>下载已经编译好的`jq`复制到`/bin/`目录下
 
 # 使用
 
 - 关于`DNSPod`的`token`申请参考官网或者百度,这里就不写详细申请方式!
+- 重构了一次版本`v1.2`更新功能如下:
+
+1. 优化写法使用面向过程写法
+2. 注释更加详细了
+3. 外网IP与网卡接口IP合并了,现在脚本支持`ip-api`和获取网卡`ip`两种方式更新
+4. 使用`bash`做为解释器
+5. 增加了两个IP获取接口
 
 ```bash
-dnspod-record.sh  这个脚本是直接获取wan口的IP进行更新
-
-net-dnspod-record.sh  这个脚本则是获取外网IP后使用外网IP进行更新记录
+dnspod-record-v1.2.sh #新脚本功能多了也跟简洁了
 ```
 
-- 配置方法
+- **配置方法**
 
 ```bash
 # dnspod id token Authentication
@@ -44,13 +49,24 @@ dpHost='' #主机名,只需要写主机名例如:www
 # device name
 DEV="pppoe-wan" #网卡名,可以使用ifconfig查看网卡名然后写上去
 
+#Updata module
+updataModule=1 #更新方式;0: 获取网卡IP更新 1: 使用在线ip更新
+
 # TTL
 TTL='120' #记录的TTL值,如果是普通用户默认应该是600,我买了解析所以我是120
 
 ```
-> `net-dnspod-record.sh`这个脚本是没有`DEV=`这个参数的,可以不用加
 
-- 使用方法
+> 切换ip接口:
+
+```bash
+#在main函数中修改
+# getInetIP # 此项是使用淘宝的ip获取接口,就是有点慢
+getInetIpI # 默认使用的ip-api接口,如果需要使用淘宝的接口则注释这行打开上面这个就行
+```
+
+
+- **使用方法**
 
 ```bash
 #克隆这个库
@@ -60,16 +76,16 @@ cd ddns-dnspod-script
 
 chmod +x *
 
-./dnspod-record.sh 或 ./net-dnspod-record.sh
+./dnspod-record-v1.2.sh
 ```
 
-- 定时执行
+- **定时执行**
 
 ```bash
 crontab -e
 
 #五分钟执行一次
-*/5 * * * * /root/dnspod-record.sh
+*/5 * * * * /root/dnspod-record-v1.2.sh
 ```
 
 # FQA
