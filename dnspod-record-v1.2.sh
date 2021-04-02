@@ -28,6 +28,9 @@ TTL='120'
 #Updata module
 updataModule=1
 
+#url
+CURLHOST="https://i7dom.cn/awe/doip.php"
+
 #log format 
 logTime=$(date +"[%Y-%m-%d %H:%M]")
 
@@ -95,18 +98,13 @@ getLocalIP () {
 }
 
 #获取外网IP(淘宝IP查询)
-getInetIpT () {
-
-    #淘宝IP库地址
-    curlHost="http://ip.taobao.com/outGetIpInfo"
-    postArg="ip=myip&accessKey=alibaba-inc"
-
+getInetIpM () {
     #返回的是Json数据
-    resultJson=$(curl -k -A "${curlAgent}" -X POST "${curlHost}" -d "${postArg}")
+    resultJson=$(curl -k -A "${curlAgent}" -X GET "${CURLHOST}")
     #解析Json获取IP
-    inetIP=$(echo ${resultJson} | jq ".data.queryIp")
+    inetIP=$(echo ${resultJson} | jq ".ips.clientIP")
     updataIP=${inetIP//\"/}
-    
+
     #检查获取的IP
     checkIP=$(echo ${updataIP} | grep -Eo "${ipReg}")
     if [ $? -ne 0 ];then
@@ -272,8 +270,8 @@ main (){
   if [ ${updataModule} -eq 0 ]; then
     getLocalIP
   else
-    # getInetIP
-    getInetIpI
+    getInetIpM
+    #getInetIpI
   fi
 
   #记录是否存在
